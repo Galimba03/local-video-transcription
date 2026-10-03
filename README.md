@@ -133,6 +133,40 @@ pip install torch torchvision torchaudio --index-url https://download.pytorch.or
 
 *Note for macOS users:* If you are using a Mac with Apple Silicon (M1/M2/M3/M4 chips), hardware acceleration via Metal Performance Shaders (MPS) is natively supported and enabled by default with the standard installation. No additional steps are required.
 
+
+### 3. **Transcribing in Different Languages or Auto-Detection**
+
+By default, the provided scripts set the transcription language to English. If you want to transcribe a video in another language, you need to modify the `--language` parameter inside the scripts.
+
+**For Windows (PowerShell):**
+Open the `src/transcribe-video.ps1` file and replace the Whisper execution line with:
+```powershell
+& whisper $tempAudio --model base --output_format txt --language it
+```
+
+**For macOS / Linux (Bash):**
+Open the `src/transcribe-video.sh` file and replace the Whisper execution line with:
+```bash
+whisper "$TEMP_AUDIO" --model base --output_format txt --language it
+```
+
+**Auto-detect Language:**
+If you prefer Whisper to automatically detect the spoken language, you can simply remove the `--language en` flag entirely from the scripts. Whisper will analyze the first 30 seconds of the audio to determine the language automatically.
+
+> **Language Codes Reference (Most spoken languages):**
+> When setting the `--language` flag, you must use the standard 2-letter code. Here are the codes for some of the most used languages in the world:
+> * English: `en`
+> * Mandarin Chinese: `zh`
+> * Hindi: `hi`
+> * Spanish: `es`
+> * French: `fr`
+> * Arabic: `ar`
+> * Bengali: `bn`
+> * Russian: `ru`
+> * Portuguese: `pt`
+> * Urdu: `ur`
+> * Italian: `it`
+
 <br>
 
 ## 👥 Testers & Contributors
