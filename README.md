@@ -102,6 +102,36 @@ source venv/bin/activate
 ```bash
 ./src/transcribe-video.sh "/path/to/video.mp4"
 ```
+<br>
+
+## 📌 Notes and Customizations
+
+### 1. **Save the transcription in the same folder as the original video**
+
+By default, Whisper saves the `.txt` file in the folder where you are executing the terminal command (which is the main project folder `transcribe-project`). If you prefer the text file to be automatically generated in the exact same location as the starting `.mp4` video, you can modify the scripts to redirect the output.
+
+**For Windows (PowerShell):**
+Open the file `src/transcribe-video.ps1` and replace the Whisper startup line with the following:
+```powershell
+& whisper $tempAudio --model base --output_format txt --language en --output_dir "$directory"
+```
+
+**For macOS / Linux (Bash):**
+Open the file `src/transcribe.sh` and replace the Whisper startup line with the following:
+```bash
+whisper "$TEMP_AUDIO" --model base --output_format txt --language en --output_dir "$DIRNAME"
+```
+
+### 2. **Enable GPU Acceleration (NVIDIA)**
+
+If your system is equipped with an NVIDIA dedicated graphics card, you can drastically reduce transcription times by offloading the workload from the CPU to the GPU. 
+
+To enable CUDA acceleration on **Windows** or **Linux**, open your terminal, activate the virtual environment, and install the GPU-optimized version of PyTorch by running:
+```bash
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+```
+
+*Note for macOS users:* If you are using a Mac with Apple Silicon (M1/M2/M3/M4 chips), hardware acceleration via Metal Performance Shaders (MPS) is natively supported and enabled by default with the standard installation. No additional steps are required.
 
 <br>
 
